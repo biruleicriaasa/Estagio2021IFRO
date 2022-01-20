@@ -1,0 +1,47 @@
+/*resetando todas as caixas 
+  filhas da tag ou caixa <html>.
+  As tags no CSS são tratadas como
+  caixas, toda tag é uma caixa no CSS.
+  É o famoso box-model.
+*/
+* {
+  /* resetando para não dar problemas*/
+  margin: 0; /*resetando a margin de todas as caixas*/
+  padding: 0; /*resetando o padding de todas as caixas*/
+  box-sizing: border-box;
+}
+/*
+  a propriedade "box-sizing: ;" pega como referencia
+  o conteudo ou a borda da caixa para definir
+  como sera calculado o tamanho da caixa
+
+  "box-sizing: border-box;" define
+   que o tamanho das caixas seram contdos 
+  aprtir da borda e não do conteudo 
+  */
+:root {
+  font-size: 62.5%;
+  /*reedefinindo o padrão da fonte na pagina inteira para
+    62.5% de 16px (padrão dos navegadores):
+      
+    62.5% de 16px = 10px
+    isso é para facilitar os calculos que irei realizar
+    a fim de converter Pixels para a unidade de medida
+    relativa "rem". 
+      vez de ser a meida que se enconta no
+      figma dividida por 16px:
+                   MedidaDoFigma/16px = X rem
+      agora vai ser:                          X equivalentes ao Y
+                   MedidaDoFigma/10px = y rem    
+    */
+}
+
+body {
+  font-size: 1.6rem; /*calculei na mente, MedidaDoFigma/10px = Y */
+  /*todos os filhos da caixa body
+    herdaram a font-sizing de 1.6rem = 16px
+    */
+}
+#header {
+  /*representação do id="header" é acompanhado da # */
+}
