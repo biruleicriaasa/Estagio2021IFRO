@@ -8,6 +8,7 @@
 
     <!-- STYLES-->
     <link rel="stylesheet" href="style.css" />
+
     <!-- 
       lincando um documento CSS no proprio
       projeto
@@ -21,41 +22,68 @@
        o nome do documento juntamento com sua exentenção
        que no caso é o arquivo "style.css" que se encontra no mesmo diretorio que esse arquivo HTML.
     -->
+
+    <!--FONTES DO GOOGLE-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <header id="header">
       <!-- O id="header" sera usado como
                                 um seletor no CSS-->
-      <h1>beautysalon</h1>
-      <!--logo-->
-
-      <div>...</div>
-      <!--meu menu-->
+      <nav class="container">
+        <!-- recebendo regras da 
+        class container a-->
+        <!-- tag de nagação para inserir o menu-->
+        <a href="#" class="logo">beauty<span>salon</span></a
+        ><!--logo-->
+        <div class="menu">...</div>
+        <!--meu menu-->
+      </nav>
     </header>
 
     <main>
-      <section>
-        <img
-          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"
-          alt="mulher sorrindo"
-        />
-        <!-- 
-          src é um local do mundo onde está imagem se encontra
-        
-          o atributo "alt" faz uma leitura de tela
-          e é direcionado para pessoas que nesscessitam
-           de acessibilidade.
-        
-          Site das imagens de salão
-          https://unsplash.com/photos/WXmHwPcFamo 
-        -->
-        <h2>Saúde natural para os seus cabelos</h2>
-        <p>
-          Um salão exclusivo em São Paulo, escializado em tratamentos naturais
-        </p>
-        <a href="#"> agendar um horario</a>
+      <section class="section" id="home">
+        <!--ADD class="section"-->
+        <div class="container grid">
+          <!-- 
+            a class container é onde será aplicada as regras css
+            dos 80% de espaço reservado para todo o conteudo.
+         -->
+          <div class="image">
+            <img
+              src="https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-1.2.1&  ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"
+              alt="mulher sorrindo"
+            />
+            <!-- 
+             src é um local do mundo onde está imagem se encontra
+          
+             o atributo "alt" faz uma leitura de tela
+             e é direcionado para pessoas que nesscessitam
+              de acessibilidade.
+          
+             Site das imagens de salão
+             https://unsplash.com/photos/WXmHwPcFamo 
+            -->
+          </div>
+          <div class="text">
+            <h2>Saúde natural para os seus cabelos</h2>
+            <p>
+              Um salão exclusivo em São Paulo, escializado em tratamentos
+              naturais
+            </p>
+            <a class="button" href="#"> agendar um horario</a>
+          </div>
+        </div>
       </section>
+      <div class="divider-1"></div>
+
+      <div class="divider-2"></div>
     </main>
 
     <footer></footer>

@@ -1,3 +1,4 @@
+/*========= RESET ================================*/
 /*resetando todas as caixas 
   filhas da tag ou caixa <html>.
   As tags no CSS são tratadas como
@@ -19,6 +20,8 @@
    que o tamanho das caixas seram contdos 
   aprtir da borda e não do conteudo 
   */
+
+/*========= VARIABLES ================================*/
 :root {
   font-size: 62.5%;
   /*reedefinindo o padrão da fonte na pagina inteira para
@@ -34,14 +37,217 @@
       agora vai ser:                          X equivalentes ao Y
                    MedidaDoFigma/10px = y rem    
     */
+  --header-height: 7.2rem; /*autura do #header */
+  --hue: 159;
+
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /*Fonts*/
+  --title-font-size: 1.875rem;
+  --subtitle-font-size: 1.6rem;
+
+  --title-font: "Poppins", sans-serif;
+  --body-font: 400 1.6rem "DM Sans", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  /*tirando as decorações de todas as tags <a>
+    . não terá o link azulado e nem sublinhado*/
+}
+
+img {
+  /*deixando as imagens responsivas*/
+  width: 100%;
+  height: auto;
+  /*a largura(width)da imagem vai se adaptar aos 
+  100% da caixa pai quando aumenta ou diminui a 
+  tela de visialização e o valor "auto" aplicado na height faz o mesmo com a altura da imagem*/
+}
+
+/*========= BASE ================================*/
 body {
-  font-size: 1.6rem; /*calculei na mente, MedidaDoFigma/10px = Y */
+  font: var(--body-font);
+  /*calculei na mente, MedidaDoFigma/10px = Y */
   /*todos os filhos da caixa body
     herdaram a font-sizing de 1.6rem = 16px
     */
+  color: var(--title-color);
+  background-color: var(--body-color);
+  -webkit-font-smoothing: antialiased;
+  /*-webkit-font-smoothing: antialiased; deixa a 
+  fonte com uma tonalidade mais fraca*/
 }
+
+h2 {
+  /*titulo principal*/
+  font: 400 3rem "Poppins", sans-serif;
+  color: var(--title-color);
+  -webkit-font-smoothing: auto;
+}
+
+.button {
+  background-color: var(--base-color);
+  color: var(--text-color-lighttex);
+  display: inline-flex; /*para habilitar algumas 
+  proprieade e deixar o conteúdo/itens do botão 
+  centralizado na vertical*/
+  height: 5.6rem; /*habilitada graças ao display:
+   inline-flex;*/
+  align-items: center; /*habilitada graças ao display:
+  inline-flex;*/
+  padding: 0 3.2rem;
+  border-radius: 0.4rem;
+  font: 500 1.6rem "DM sans", sans-serif;
+  transition: background 0.3s;
+  /*tempo de 0.3s para a transição do background
+    do botão*/
+}
+
+.button:hover {
+  /*quando o mouse passar em cima do botão vai mudar
+    a cor do bacground*/
+  background-color: red;
+}
+
+.divider-1 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 36%, 57%, 1),
+    hsla(var(--hue), 65%, 88%, 0.34)
+  );
+}
+
+/*======= LAYOUT ======================================*/
+.container {
+  /*reservando o espaço aproximado de 90% do conteúdo*/
+  width: 100%; /*ferencia é uma caixa*/
+  margin-left: 2.4rem;
+  margin-right: 2.4rem;
+}
+
+.grid {
+  display: grid; /*habilita novas possibilidades*/
+  gap: 3.2rem; /*abre espaço entre elementos filhos
+                  que no caso é, .text e .image*/
+}
+
+.section {
+  padding: 8rem 0; /* 'top bottom' 'left right' */
+}
+
 #header {
-  /*representação do id="header" é acompanhado da # */
+  border-bottom: 1px solid #e4e4e4;
+  /*border-bottom adicionando borda inferior*/
+  display: flex; /* os conteudos do herder vai se adptar */
+  position: fixed;
+  top: 0; /*habilitada porcaisa da declaração position*/
+  left: 0; /*habilitada porcaisa da declaração position*/
+  width: 100%;
+  z-index: 100; /*eixos da caixa 2D são os eixos-  
+   Y (vertical),X (horizontal)e Z (profundidade)
+   o z-index é o eixo de prfundidade. foi habilitada
+   por causa da propriedade "position" ou por ter
+   seu display: flex; */
+  background-color: var(--body-color);
+}
+
+nav {
+  height: var(
+    --header-height
+  ); /*mais vantajoso para aplicar o 
+  align-items: center;*/
+  display: flex; /*colocando os elementos na horizontal*/
+  justify-content: space-between;
+  /*justify-content: space-between; está inserindo um 
+  espaço entre os elementos da logo e do menu*/
+  align-items: center; /*alinhando na vertical*/
+  width: 100%;
+}
+
+.logo {
+  font: 700 2.1rem "Poppins", sans-serif;
+  color: var(--title-color);
+}
+
+.logo span {
+  /*METADE DA LOGO É VERDE*/
+  color: var(--base-color);
+}
+
+main {
+  margin-top: var(--header-height);
+}
+
+/*========= HOME ================================*/
+
+#home {
+  overflow: hidden;
+}
+#home .container {
+  margin: 0; /*zerando as margins de todas as caixas filhas
+              que foi aplicada no seletor .container 
+              (.text e .image)
+              para deixa igual está no figma*/
+}
+
+#home .image {
+  position: relative; /*deixando essa caixa relativa 
+                       para o pseudo elemento não ser 
+                       absoluto a caixa <body>*/
+}
+
+#home .image::before {
+  /*este seletor vai criar o pseudo elemto da imagem*/
+  content: ""; /*o conteudo é um background vazio*/
+  width: 100%;
+  height: 100%;
+  background-color: var(--base-color-second);
+  position: absolute; /*está absoluta a tudo na caixa
+                      .image que é position: relative*/
+  top: -16.8%;
+  left: 16.7%;
+  z-index: 0;
+  /*z-index: ; define a profundidade da caixa 2D*/
+}
+
+#home .image img {
+  /*estilizando a tag img da home*/
+  position: relative;
+  right: 4.7rem;
+}
+
+#home .image::before,
+#home .image img {
+  /*arredondando as bordas da imagem e 
+  do pseudo elemento*/
+  border-radius: 0.4rem;
+}
+
+#home .text {
+  /*#home .text - criado para estilizar os textos da seção home*/
+  /*voltando o padrão do margin aplicado no .container acima */
+  margin-left: 2.4rem;
+  margin-right: 2.4rem;
+  text-align: center;
+}
+
+#home .text h2 {
+  /*adicionado margem inferior na caixa h2 da seção
+   home que se econtra na caixa .text*/
+  margin-bottom: 1.6rem;
+}
+
+#home .text p {
+  /*adicionado margem inferior na caixa <p> da seção
+   home que se econtra na caixa .text*/
+  margin-bottom: 3.2rem;
+  max-width: 100%; /*para dar limite a caixa*/
 }
