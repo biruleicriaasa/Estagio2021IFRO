@@ -21,6 +21,10 @@
   aprtir da borda e não do conteudo 
   */
 
+ul {
+  list-style: none;
+}
+
 /*========= VARIABLES ================================*/
 :root {
   font-size: 62.5%;
@@ -38,7 +42,7 @@
                    MedidaDoFigma/10px = y rem    
     */
   --header-height: 7.2rem; /*autura do #header */
-  --hue: 159;
+  --hue: 249;
 
   --base-color: hsl(var(--hue) 36% 57%);
   --base-color-second: hsl(var(--hue) 65% 88%);
@@ -72,6 +76,12 @@ img {
 }
 
 /*========= BASE ================================*/
+html {
+  scroll-behavior: smooth; /*para suavisar a transição
+  de direcionamento das seções realizadas pelo menu e
+  outros que realizam o redirecionamento... */
+}
+
 body {
   font: var(--body-font);
   /*calculei na mente, MedidaDoFigma/10px = Y */
@@ -85,9 +95,9 @@ body {
   fonte com uma tonalidade mais fraca*/
 }
 
-h2 {
+.title {
   /*titulo principal*/
-  font: 400 3rem "Poppins", sans-serif;
+  font: 700 4.8rem "Poppins", sans-serif;
   color: var(--title-color);
   -webkit-font-smoothing: auto;
 }
@@ -124,6 +134,17 @@ h2 {
     hsla(var(--hue), 65%, 88%, 0.34)
   );
 }
+.divider-2 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 65%, 88%, 0.34),
+    /*troquei de
+     posições as propriedades hsla por que o .divider-2
+     é o inverso do .divider-1*/
+      hsla(var(--hue), 36%, 57%, 1)
+  );
+}
 
 /*======= LAYOUT ======================================*/
 .container {
@@ -143,6 +164,18 @@ h2 {
   padding: 8rem 0; /* 'top bottom' 'left right' */
 }
 
+.section .title {
+  margin-bottom: 1.6rem;
+}
+
+.section header {
+  margin-bottom: 6.4rem;
+}
+
+.section header strong {
+  color: var(--base-color);
+}
+
 #header {
   border-bottom: 1px solid #e4e4e4;
   /*border-bottom adicionando borda inferior*/
@@ -159,6 +192,30 @@ h2 {
   background-color: var(--body-color);
 }
 
+#header.scroll {
+  /*adiconando sombra na borda inferior do
+  cabeçãlho da pagina através do JavaScript*/
+  box-shadow: 0px 0px 20px gold;
+  background-color: red;
+}
+
+main {
+  margin-top: calc(var(--header-height) + 3.2rem);
+}
+
+/*======= LOGO ======================================*/
+.logo {
+  font: 700 2.1rem "Poppins", sans-serif;
+  color: var(--title-color);
+}
+
+.logo span {
+  /*METADE DA LOGO É VERDE*/
+  color: var(--base-color);
+}
+
+/*======= NAVIGATION ======================================*/
+
 nav {
   height: var(
     --header-height
@@ -172,20 +229,171 @@ nav {
   width: 100%;
 }
 
-.logo {
-  font: 700 2.1rem "Poppins", sans-serif;
-  color: var(--title-color);
+/*nav .menu{} - enquanto o menu estiver fechado*/
+nav .menu {
+  /*é a caixa(div) do menu inicialmente*/
+  opacity: 0;
+  visibility: hidden;
+
+  top: -2rem;
+  transition: 0.3s;
 }
 
-.logo span {
-  /*METADE DA LOGO É VERDE*/
+nav .menu ul {
+  display: none; /*quando o menu é solicitado a lista inteira incialmente ja está sendo exibida antes mesmo do menu ser
+  requisitado e por causa disso estava gerando um efeito de pisca no conteúdo da lista (efeito visual desagradavel). o
+  efeito visual desagradavel foi corrgido aplicando um
+  display: none; na lista que remove todo tipo de visualização
+  da lista enquanto o menu não for requisitado/aberto. */
+}
+
+nav ul li {
+  /*centralizando horizontalmente o texto da lista 
+   na caixa */
+  text-align: center;
+}
+nav ul li a {
+  /*definindo tem para a cor do texto das <a></a>
+    do menu que estão sendo declaradas no seletor 
+    "nav ul li a:hover {}"
+    */
+  transition: color 0.3s;
+  position: relative; /*deixando as <a></a>
+  do da caixa menu com position:relative para que
+  o pseudo elemento seja absoluto sobre as ancoras
+  da caixa <div class="menu"> */
+}
+
+nav ul li a:hover {
+  /*ao passar o cursor do mouse sobre o texto do <a></a>
+    ocorrera uma transição de cor*/
   color: var(--base-color);
 }
 
-main {
-  margin-top: var(--header-height);
+nav ul li a::after {
+  /*relacionado as acoras que estão na lista do menu.
+    ao passar o cursor do mouse sobre as opções do menu
+    uma barrinha a baixo dos textos realizará uma 
+    transição de 100% de largura(em relação as <a></a>)
+    até o lado direito.
+  */
+  content: ""; /*o valor de aspas vazias siginifa que é
+                somente uma folha trasnparente mas
+                que pode ser aplicado cores através 
+                da propriedade background-color*/
+
+  width: 0%; /* para realizar a transição da barrinha 
+                inicialmente é preciso que ela não pegue nada de largura das caixas 
+                <a></a> do menu e por isso a width foi
+                declarada com o valor de 0%. */
+  height: 2px; /* visualmente é a grossura da barrinha*/
+
+  background-color: var(--base-color); /*cor da barra*/
+  position: absolute; /*nas ancoras foram declaradas a
+                        position:relative; para o
+                        pseudo elemento ser absoluto 
+                        em relação a elas. o seletor
+                        foi nav ul li a {}. 
+  */
+  left: 0; /*foi definido o deslocamento da esquerda 
+  como zero(0) para a transição iniciar da esquerda
+  e ser finaliza na direita*/
+  bottom: -1.5rem; /* definido o deslocamento infeior como negativo para a barra ficar bem abaixo dos
+  textos*/
+  transition: width 0.3s;
 }
 
+nav ul li a:hover::after {
+  /*relacionado as acoras que estão na lista do menu.
+    ao passar o cursor do mouse sobre as opções do menu
+    uma barrinha a baixo dos textos realizará uma 
+    transição de 100% de largura(em relação as <a></a>)
+    até o lado direito.
+  */
+  width: 100%;
+}
+
+/*QUANDO O MENU ESTIVER ABERTO*/
+nav.show .menu {
+  opacity: 1;
+  visibility: visible;
+
+  background-color: var(--body-color);
+  width: 100vw; /*widht: 100vw é referente a largura da
+  tela de visualização do dispositivo - divide a 
+  largura da tela de visualziação em 100 pedaços 
+  e pega os 100 pedaços para exibir o conteúdo*/
+  height: 100vh; /*height: 100vh é referente a altura da
+  tela de visualização do dispositivo - divide a 
+  altura da tela de visualziação em 100 pedaços 
+  e pega os 100 pedaços para exibir o conteúdo*/
+
+  position: fixed; /*deixando a caixa menu fixa e 
+  acima de tudo quando receber a class show */
+  top: 0;
+  left: 0;
+  /*
+    top: 0;  e  left: 0; são para deslocar  a caixa 
+    nessas posições afim da caixa oucupar toda a tela
+    de visualização.
+     
+  */
+  display: grid; /*habilita novas possibilidades*/
+  place-content: center; /*habilitada por causa 
+                          do display: grid; acima*/
+}
+
+nav.show .menu ul {
+  /*quando o menur ser requisitado/exibido a lista voltara
+     a ser exibida com display:grid;*/
+  display: grid; /*quando o usuário abria o menu inteiro piscava a lista de opções inteira e para corrigir esse 
+   detalhe visual foi aplicado um display grid:none; na lista
+   (nav .menu ul{}),é o estado inicial quando o menu está
+   fechado. quando o usuário abrir o menu será aplicada o display:grid; exibindo a lista inteira e acabando com 
+   impecilho visual. */
+}
+
+nav.show ul.grid {
+  /*colocando espaço entre os <li> da lista*/
+  gap: 6.4rem;
+}
+
+/*TOOGLE MENU */
+.toggle {
+  /* estilizando os icones do menu atraves da 
+  class toggle */
+  font-size: 2.4rem;
+  color: var(--base-color);
+}
+
+nav .icon-close {
+  /*não add no word*/
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  right: 2.4rem;
+  top: -2.4rem; /*fazendo um deslocamento com um valor
+                  muito negativo para que o icone subu e fique
+                  fora da janela de visualização para descer
+                  lentamento (aplicando a tasintion:;) para o
+                  mesmo local*/
+
+  transition: 0.2s; /*aplicando a transição para tudo*/
+}
+
+nav.show div.icon-close {
+  /*não addei no relatorio*/
+  visibility: visible;
+  opacity: 1;
+  /*não addei no relatorio*/
+  top: 2.4rem; /*no nav .icon-close{} foi declarado um 
+  top: -2.4rem para que ficasse muito acima saindo da janela de 
+  visualização. no seletor nav.show div.icon-close{}  está
+  aplicando as estilizações para quando o menu for 
+  requisitado/exibido. a top: 2.4rem; faz com que ele se 
+  desloque para uma posição dentro da janela de visualização
+  possibbilitando visualiza-lo e realizar o click. */
+}
 /*========= HOME ================================*/
 
 #home {
@@ -250,4 +458,87 @@ main {
    home que se econtra na caixa .text*/
   margin-bottom: 3.2rem;
   max-width: 100%; /*para dar limite a caixa*/
+}
+
+/*========= ABOUT ================================*/
+#about {
+  background-color: white;
+}
+#about .container {
+  margin: 0; /*zerando as margins de todas as caixas filhas
+              que foi aplicada no seletor .container 
+              (.text e .image)
+              para deixa igual está no figma*/
+}
+
+#about .image {
+  position: relative; /*deixando essa caixa relativa 
+                       para o pseudo elemento não ser 
+                       absoluto a caixa <body>*/
+}
+
+#about .image::before {
+  /*este seletor vai criar o pseudo elemto da imagem*/
+  content: ""; /*o conteudo é um background vazio*/
+  width: 100%;
+  height: 100%;
+  background-color: var(--base-color-second);
+  position: absolute; /*está absoluta a tudo na caixa
+                      .image que é position: relative*/
+  top: -8.2%;
+  left: -33%;
+  z-index: 0;
+  /*z-index: ; define a profundidade da caixa 2D*/
+}
+
+#about .image img {
+  /*estilizando a tag img da home*/
+  position: relative;
+  /*removi o deslocamento right: 4.7rem*/
+}
+
+#about .image::before,
+#about .image img {
+  /*arredondando as bordas da imagem e 
+  do pseudo elemento*/
+  border-radius: 0.4rem;
+}
+
+#about .text {
+  /*#home .text - criado para estilizar os textos da seção home*/
+  /*voltando o padrão do margin aplicado no .container acima */
+  margin-left: 2.4rem;
+  margin-right: 2.4rem;
+  /*removi o text-aling: center;*/
+}
+
+/*======= SERVICES ======================================*/
+.cards.grid {
+  /*add nao regis*/
+  gap: 2.4rem;
+}
+
+.card {
+  padding: 5.8rem 3.2rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 0.4rem solid var(--base-color);
+  border-radius: 0.4rem 0.4rem 0 0;
+  text-align: center; /*alinhando os textos no centro.
+  lembrando que os icones viraram fontes logo eles 
+  receberam aplicação da text-aling:center;*/
+}
+
+.card i {
+  /*referente a estilização dos icones*/
+  display: block; /*para habilitar a margin*/
+  margin-bottom: 2.4rem; /*margin habilitada*/
+  font-size: 8rem; /*tamanho dos icones*/
+  color: var(--base-color); /*cor dos icones*/
+}
+
+.card .title {
+  /*é os titulos do cardo da seção
+  serviços*/
+  font-size: 2.4rem;
+  margin-bottom: 1.2rem;
 }
